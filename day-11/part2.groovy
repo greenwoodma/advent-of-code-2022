@@ -2,6 +2,10 @@ import java.math.BigInteger;
 
 List<Monkey> monkeys = new ArrayList<Monkey>();
 
+// we multiply all the tests together and use this to keep the numbers
+// low and managable. This works because if we have tests 2 and 3 then
+// we can do mod(2*3) to reduce the size of the number as the remainder
+// will still be valid for tests of either mod(2) or mod(3)
 def combined = new BigInteger("1");
 
 String[] input = new File("input.txt");
@@ -20,6 +24,7 @@ for (int i = 0 ; i < input.length ; i = i + 7) {
 	
 	// the number to do the divisible test
 	BigInteger test = new BigInteger(input[i+3].split("\\s+").last());
+	
 	combined = combined.multiply(test);
 	
 	// the true and false monkeys
@@ -50,6 +55,7 @@ for (int round = 0 ; round < 10000 ; ++round) {
 			// get the next item
 			BigInteger item = monkey.items.remove();
 			
+			// make the number smaller using the combined test
 			item = item.mod(combined);
 			
 			//System.out.print("2");
